@@ -77,26 +77,12 @@
         <div class="modal-content shadow-lg rounded-3">
 
             <!-- Header -->
-<<<<<<< HEAD
-            <div class="modal-header bg-primary text-white position-relative d-flex align-items-center" style="height: 60px;">
-                <h5 class="modal-title fw-bold text-white m-0 position-absolute top-50 start-50 translate-middle" id="grnModalLabel">
-                    InStocks
-                </h5>
-                <button type="button"
-                        class="btn-close btn-close-white position-absolute top-90 end-0 translate-middle-y me-3"
-                        data-bs-dismiss="modal">
-                </button>
-
-=======
             <div class="modal-header bg-primary text-white justify-content-center position-relative py-3">
                 <h5 class="modal-title fw-bold text-white text-center m-0 fs-4" id="grnModalLabel">
                     <i class="bi bi-box-seam me-2"></i>In-Stocks Management
                 </h5>
                 <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
->>>>>>> 9d4833d94295610f8bb88a613711f7b6038ceba6
             </div>
-
-
 
             <!-- Body -->
             <div class="modal-body p-4">
@@ -104,7 +90,7 @@
 
                     <!-- GRN / Invoice Details - Enhanced Card Layout -->
                     <div class="card shadow-sm border-0 mb-4">
-                      
+
                         <div class="card-body p-0">
                             <div class="row g-0">
                                 <!-- Left Column -->
@@ -180,7 +166,7 @@
 
                     <!-- Item Allocation Table - Enhanced -->
                     <div class="card shadow-sm border-0">
-                       
+
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle mb-0 instockTable">
@@ -472,7 +458,7 @@
             $row.find(".remaining").text(remaining);
         });
 
-        // 🔹 Save Assignments
+        // Save Assignments
        $(".btnAssign").click(function () {
     let assignments = [];
 
@@ -528,7 +514,7 @@
 });
 
 
-        // 🔹 Disable row if fully stored
+        //Disable row if fully stored
         $(".instockTable tbody tr").each(function () {
             var qty = parseInt($(this).find("td:eq(5)").text()) || 0;
             var stored = parseInt($(this).find("td:eq(6)").text()) || 0;
@@ -538,5 +524,5 @@
                 $(this).find("select, input").prop("disabled", true);
             }
         });
-    });
+    });
 </script>
