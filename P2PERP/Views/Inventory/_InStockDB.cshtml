@@ -102,37 +102,56 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">GRN Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control bg-light border-0" value="@Model.GRNDate.ToString("dd/MM/yyyy")" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label fw-bold text-muted small">PO Reference</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control bg-light border-0" name="POReference" value="@Model.POReference" readonly />
                                         </div>
                                     </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Vendor Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control bg-light border-0" name="VendorName" value="@Model.VendorName" readonly />
+                                        </div>
+                                    </div>
+
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label fw-bold text-muted small">Invoice No</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control bg-light border-0" name="InvoiceCode" value="@Model.InvoiceCode" readonly />
                                         </div>
                                     </div>
+
+                                    
                                     <div class="row">
-                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Vendor Code</label>
+                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Warehouse Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control bg-light border-0" name="VendorCode" value="@Model.VendorCode" readonly />
+                                            <input type="text" class="form-control bg-light border-0" name="WareHouseName" value="@Model.WarehouseName" readonly />
                                         </div>
                                     </div>
+
+
                                 </div>
 
                                 <!-- Right Column -->
                                 <div class="col-md-6 p-3">
                                     <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">GRN Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control bg-light border-0" value="@Model.GRNDate.ToString("dd/MM/yyyy")" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label fw-bold text-muted small">PO Contact Info</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control bg-light border-0" name="POContactInfo" value="@Model.ContactNo" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Vendor Code</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control bg-light border-0" name="VendorCode" value="@Model.VendorCode" readonly />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -142,23 +161,14 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Vendor Name</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control bg-light border-0" name="VendorName" value="@Model.VendorName" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label fw-bold text-muted small">Store ID</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control bg-light border-0" name="StorId" value="@Model.WareHouseCode" readonly />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <label class="col-sm-4 col-form-label fw-bold text-muted small">Warehouse Name</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control bg-light border-0" name="WareHouseName" value="@Model.WarehouseName" readonly />
-                                        </div>
-                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -172,7 +182,7 @@
                                 <table class="table table-hover align-middle mb-0 instockTable">
                                     <thead class="table-primary">
                                         <tr>
-                                            <th class="text-center">#</th>
+                                            <th class="text-center">Sr.No.</th>
                                             <th>Item Code</th>
                                             <th>Item Name</th>
                                             <th>Type</th>
@@ -265,7 +275,7 @@
                                                             </div>
                                                             <div class="d-flex align-items-center gap-2">
                                                                 <label class="form-label small fw-semibold text-muted mb-0">Assign Qty:</label>
-                                                                <input type="number" class="form-control form-control-sm assign-qty" style="width: 100px;" min="0" value="0" @(isComplete ? "disabled" : "") />
+                                                                <input type="number" class="form-control form-control-sm assign-qty" style="width: 150px; font-size: 14px;" min="0"  placeholder="Enter quantity"  @(isComplete ? "disabled" : "") />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -278,22 +288,22 @@
                         </div>
                     </div>
 
-                    <!-- Footer Buttons -->
-                    <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                        <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle me-2"></i>Close
-                        </button>
-                        <button type="button" class="btn btn-success px-4 btnAssign">
-                            <i class="bi bi-check-circle me-2"></i>Assign Storage
-                        </button>
-                    </div>
-
                 </form>
+
+                <!-- Footer Buttons -->
+
+                <button type="button" class="btn btn-success px-4 btnAssign float-end">
+                    <i class="bi bi-check-circle me-2"></i>Assign Bin
+                </button>
+
+            </div>
+
+              
             </div>
 
         </div>
     </div>
-</div>
+
 
 
 
