@@ -516,6 +516,19 @@ namespace P2PLibray.Inventory
             }
             drMostStock.Close();
 
+            // ----------------- Section Count -----------------
+            Dictionary<string, string> Section = new Dictionary<string, string>
+            {
+                { "@Flag", "TotalSectionCountHSB" }
+            };
+
+            SqlDataReader drSectionStock = await obj.ExecuteStoredProcedureReturnDataReader("InventoryProcedure", Section);
+            if (drSectionStock.HasRows && await drSectionStock.ReadAsync())
+            {
+                model.Section = Convert.ToInt32(drSectionStock["Section"]);
+            }
+            drSectionStock.Close();
+
             return model;
         }
         #endregion
@@ -575,6 +588,38 @@ namespace P2PLibray.Inventory
                 return null;
             }
             
+        }
+
+        public async Task<List<InventoryBinDRB>> GetBinsName(string itemcode)
+        {
+            List<InventoryBinDRB> inventoryBinDRBs = new List<InventoryBinDRB>();
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("@Flag", "GetBinsNameDRB");
+            param.Add("@GRNItemCode", itemcode);
+            SqlDataReader dr = await obj.ExecuteStoredProcedureReturnDataReader("InventoryProcedure", param);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    InventoryBinDRB obj = new InventoryBinDRB
+                    {
+                        BinCode = dr["BinCode"].ToString(),
+                        BinName = dr["BinName"].ToString(),
+                        CurrentItems = dr["QuantityStored"].ToString()
+
+                    };
+
+                    inventoryBinDRBs.Add(obj);
+                }
+
+                return inventoryBinDRBs;
+
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         /// <summary>
@@ -997,7 +1042,11 @@ namespace P2PLibray.Inventory
         public async Task<List<InventoryLM>> ShowNonMovingStockLM()
         {
             List<InventoryLM> nonMovingStocks = new List<InventoryLM>();
-            var param = new Dictionary<string, string> { { "@Flag", "ShowNonMovingStockLM" } };
+            var param = new Dictionary<string, string>
+    {
+        { "@Flag", "ShowNonMovingStockLM" },
+        { "@CurrentDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") }  //  pass current date
+    };
             SqlDataReader dr = await obj.ExecuteStoredProcedureReturnDataReader("InventoryProcedure", param);
 
             if (dr.HasRows)
@@ -1224,7 +1273,6 @@ namespace P2PLibray.Inventory
 
                     list = dt.AsEnumerable().Select(r => new ReceivedMaterialReport
                     {
-                        ReceiveMaterialId = r.Field<int>("ReceiveMaterialId"),
                         ReceivedDate = r.Field<DateTime>("ReceivedDate").ToString("yyyy-MM-dd"),
                         GRNCode = r["GRNCode"]?.ToString(),
                         POCode = r["POCode"]?.ToString(),
@@ -2960,7 +3008,9 @@ namespace P2PLibray.Inventory
                         { "@flag", "insertMRPItemMHB" },
                         { "@MRPCode", model.MRPCode },
                         { "@ItemCode", item.ItemCode },
-                        { "@Quantity", item.QuantityMRP }
+                        { "@Quantity", item.QuantityMRP },
+                        {"@fromDate",model.FromDate },
+                         {"@toDate",model.ToDate},
                     };
 
                     await obj.ExecuteStoredProcedureReturnDS("InventoryProcedure", insertParams);
@@ -3305,7 +3355,7 @@ namespace P2PLibray.Inventory
                 Additem.Add("@ItemName", n.ItemName ?? "");
                 Additem.Add("@ItemCategoryId", n.ItemCategoryId.ToString());
                 Additem.Add("@ItemStatusId", n.ItemStatusId.ToString());
-                Additem.Add("@Date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")); // formatted datetime
+                Additem.Add("@Date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")); 
                 Additem.Add("@UOMId", n.UOMId.ToString());
                 Additem.Add("@Description", n.Description ?? "");
                 Additem.Add("@UnitRates", n.UnitRates.ToString());
@@ -3316,7 +3366,6 @@ namespace P2PLibray.Inventory
                 Additem.Add("@ExpiryDays", n.ExpiryDays.ToString());
                 Additem.Add("@IsQuality", n.ISQualityBit.ToString());
 
-                // Call stored procedure that returns dataset with Result
                 var ds = await obj.ExecuteStoredProcedureReturnDS("InventoryProcedure", Additem);
 
                 if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

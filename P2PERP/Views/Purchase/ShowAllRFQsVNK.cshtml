@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "ShowAllRFQsVNK";
+    ViewBag.Title = "Show All RFQs";
 }
 
 <html>
@@ -16,6 +16,7 @@
             button.dt-button.processing:after {
                 content: none !important;
             }
+
         .card-header-small {
             padding: 0.25rem 1rem;
             font-size: 1.8rem;
@@ -42,6 +43,10 @@
         .modal-wide .modal-dialog {
             max-width: 1200px;
             margin-top: 80px;
+        }
+
+        #tblRFQ thead th {
+            white-space: nowrap !important;
         }
 
 
@@ -117,6 +122,85 @@
         .modal-dialog {
             margin-top: 140px;
         }
+
+         .form-control, .form-select {
+        border-radius: 0.5rem;
+        border: 1px solid #ced4da;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        border-color: #86b7fe;
+    }
+
+    .btn {
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        border: none;
+    }
+
+    .table th {
+        border-top: none;
+        font-weight: 600;
+    }
+
+    .table-responsive {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    /*  Compact Table Row Size */
+    .table td, .table th {
+        padding: 0.35rem 0.5rem !important;
+        font-size: 0.78rem;
+        vertical-align: middle;
+
+    }
+
+    .btn-delete {
+        padding: 2px 6px !important;
+        font-size: 0.70rem !important;
+    }
+
+        .btn-delete i {
+            font-size: 0.75rem !important;
+        }
+
+
+    @@media (max-width: 768px) {
+        .form-control, .form-select, .btn, .table td, .table th {
+            font-size: 0.85rem;
+        }
+    }
+
+        /* Remove space above export buttons */
+        .dt-toolbar {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* If DataTables automatically adds margin to the top row */
+        div.dt-buttons {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* Reduce gap between datepicker and export buttons */
+        .ms-3 {
+            margin-bottom: 0.1rem !important; /* or 0 if you want zero spacing */
+        }
+
     </style>
 
 </head>
@@ -133,7 +217,7 @@
 
                 @*date picker*@
 
-                <div class="mb-3 ms-3 d-flex align-items-center gap-2">
+                <div class="mb-3 ms-3 d-flex align-items-center gap-2 ms-5">
                     <div class="input-group" style="max-width: 280px;">
                         <span class="input-group-text bg-primary text-white">
                             <i class="bi bi-calendar-date"></i>
@@ -167,8 +251,8 @@
     <div class="modal fade" id="rfqModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white justify-content-center">
-                    <h5 class="modal-title fw-bold text-white mb-4">Quotation List</h5>
+                <div class="card-header bg-primary text-white d-flex justify-content-center align-items-center rounded-top p-1">
+                    <h3 class="modal-title fw-bold text-white mb-0 fs-5">Quotation List</h3>
                     <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body" id="rfqModalContent"></div>
@@ -204,7 +288,7 @@
                     }
                 }
 
-                return dateValue; 
+                return dateValue;
             }
 
 
@@ -230,7 +314,7 @@
                         // Add filter to DataTable
                         $.fn.dataTable.ext.search.push(function (settings, data) {
                             if (settings.nTable.id !== 'tblRFQ') return true;
-                            const addedDate = moment(data[3], 'DD/MM/YYYY'); 
+                            const addedDate = moment(data[3], 'DD/MM/YYYY');
                             return addedDate.isBetween(start, end, undefined, '[]');
                         });
                         if (rfqTable) rfqTable.draw();
@@ -266,6 +350,7 @@
 
             //search
             let rfqTable = $('#tblRFQ').DataTable({
+
                 dom: '<"dt-toolbar"<"dt-left"B><"dt-search"f>>rt<"bottom d-flex justify-content-between align-items-center"ip>',
                 buttons: [
 
@@ -291,29 +376,29 @@
                             const formattedDate = today.toLocaleDateString('en-GB');
 
                             $(win.document.body).prepend(`
-                        <div style="text-align:center; font-size:18px; font-weight:bold; margin-bottom:5px;">Register Quotations</div>
-                        <div style="text-align:center; font-size:12px; margin-bottom:10px;">Generated Date: ${formattedDate}</div>
-                    `);
+                            <div style="text-align:center; font-size:18px; font-weight:bold; margin-bottom:5px;">Register Quotations</div>
+                            <div style="text-align:center; font-size:12px; margin-bottom:10px;">Generated Date: ${formattedDate}</div>
+                        `);
 
                             $(win.document.body).append(`
-                        <style>
-                            thead th {
-                                background-color: black !important;
-                                color: white !important;
-                                text-align: center !important;
-                                -webkit-print-color-adjust: exact !important;
-                                print-color-adjust: exact !important;
-                            }
-                            table {
-                                border-collapse: collapse !important;
-                                width: 100% !important;
-                            }
-                            td, th {
-                                border: 1px solid #000 !important;
-                                padding: 6px !important;
-                            }
-                        </style>
-                    `);
+                            <style>
+                                thead th {
+                                    background-color: black !important;
+                                    color: white !important;
+                                    text-align: center !important;
+                                    -webkit-print-color-adjust: exact !important;
+                                    print-color-adjust: exact !important;
+                                }
+                                table {
+                                    border-collapse: collapse !important;
+                                    width: 100% !important;
+                                }
+                                td, th {
+                                    border: 1px solid #000 !important;
+                                    padding: 6px !important;
+                                }
+                            </style>
+                        `);
 
                             $(win.document.body).find('table')
                                 .addClass('table table-bordered table-striped')
@@ -348,7 +433,7 @@
                         }
                     },
 
-                   
+
                     // Excel
                     {
                         extend: 'excelHtml5',
@@ -401,15 +486,15 @@
 
                             var titleRow = `
 <row r="1">
-    <c t="inlineStr" r="A1" s="55">
-        <is><t>${title}</t></is>
-    </c>
+        <c t="inlineStr" r="A1" s="55">
+            <is><t>${title}</t></is>
+        </c>
 </row>`;
                             var dateRow = `
 <row r="2">
-    <c t="inlineStr" r="A2" s="56">
-        <is><t>${generatedDate}</t></is>
-    </c>
+        <c t="inlineStr" r="A2" s="56">
+            <is><t>${generatedDate}</t></is>
+        </c>
 </row>`;
 
                             $sheet.find('sheetData').prepend(titleRow + dateRow);
@@ -435,11 +520,11 @@
                             // Create new centered style entries
                             cellXfs.append(`
 <xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyAlignment="1">
-    <alignment horizontal="center" vertical="center"/>
+        <alignment horizontal="center" vertical="center"/>
 </xf>`);
                             cellXfs.append(`
 <xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyAlignment="1">
-    <alignment horizontal="center" vertical="center"/>
+        <alignment horizontal="center" vertical="center"/>
 </xf>`);
                             cellXfs.attr('count', count + 2);
 
@@ -449,8 +534,8 @@
                         }
                     },
 
-              
-                    // ✅ CSV Export for RFQ Table
+
+                    //  CSV Export for RFQ Table
                     {
                         extend: 'csvHtml5',
                         text: '<i class="bi bi-filetype-csv text-success fs-5"></i>',
@@ -461,62 +546,52 @@
                             'title': 'Export to CSV'
                         },
                         action: function (e, dt, button, config) {
-                            // ✅ Require selection before export
                             if ($('#tblRFQ .row-select:checked').length === 0) {
                                 showToast("Please select at least one row to export!", "warning");
                                 return;
                             }
 
-                            // ✅ Reset serial counter before export
                             window.__srnoCounter = 0;
 
-                            // ✅ Call default export logic
                             $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
                             dt.processing(false);
                         },
                         exportOptions: {
-                            // ✅ Only export checked rows
                             rows: function (idx, data, node) {
                                 return $(node).find('.row-select').prop('checked');
                             },
-                            // ✅ Exclude unwanted columns (like checkbox + last column)
                             columns: function (idx) {
                                 return idx !== 0 && idx !== 6;
                             },
                             format: {
                                 body: (function () {
                                     return function (data, row, column, node) {
-                                        // Remove HTML tags
                                         data = typeof data === 'string' ? data.replace(/<[^>]*>/g, '').trim() : data;
 
-                                        // ✅ Serial Number Column
                                         if (column === 1) {
                                             if (!window.__srnoCounter) window.__srnoCounter = 0;
                                             return ++window.__srnoCounter;
                                         }
 
-                                        // ✅ Date Column (Change column index if needed)
                                         if (column === 3) {
                                             const m = moment(data, ["DD/MM/YYYY", "YYYY-MM-DD", "DD-MM-YYYY"], true);
                                             if (m.isValid()) {
-                                                return m.format("DD/MM/YYYY"); // consistent format
+                                                return m.format("DD/MM/YYYY");
                                             }
                                             return data;
                                         }
 
-                                        // ✅ Default return for other columns
                                         return data;
                                     };
                                 })()
                             }
                         },
-                        title: null, // Disable auto title row
+                        title: null,
                         filename: function () {
                             return 'RFQ_List_' + new Date().toISOString().slice(0, 10).replace(/-/g, "");
                         },
                         customize: function (csv) {
-                            // Optional: center-align or add spacing at top
-                            const spaces = '          '; // 10 spaces
+                            const spaces = '          ';
                             return spaces + '\n' + csv;
                         }
                     }
@@ -543,20 +618,20 @@
                             console.log(row)
                             let registerBtn = '';
                             let viewBtn = ''
-                            if (row.HasUnregisteredVendors && Number(row.HasUnregisteredVendors) === 1) {
-                                registerBtn = `<a class="btn btn-sm btn-success ms-1"
-                                    href="/Purchase/RegisterQuotationVNK?rfqCode=${encodeURIComponent(row.RFQCode)}&prCode=${encodeURIComponent(row.PRCode)}"
-                                    title="Register Quotation" data-bs-toggle="tooltip">
-                                    <i class="bi bi-file-earmark-plus-fill fs-5"></i>
-                                </a>`;
+                            if (row.HasUnregisteredVendors && Number(row.HasUnregisteredVendors) === 1 && Number(row.HasApproved) == 0) {
+                                registerBtn = `<a class="btn btn-sm btn-success fs-5 ms-1 square-pill d-inline-flex align-items-center px-2 py-1 shadow"
+                                        href="/Purchase/RegisterQuotationVNK?rfqCode=${encodeURIComponent(row.RFQCode)}&prCode=${encodeURIComponent(row.PRCode)}"
+                                        title="Register Quotation" data-bs-toggle="tooltip">
+                                        <i class="bi bi-file-earmark-plus-fill fs-5"></i>
+                                    </a>`;
                             }
                             if (row.AnyVendor && Number(row.AnyVendor) === 1) {
                                 viewBtn = `<a href="javascript:void(0)"
-                                class="btn btn-sm btn-view  btn-icon-square btn-primary btn-view-quotation"
-                                data-rfq="${row.RFQCode}" data-pr="${row.PRCode}" data-unreg="${row.HasUnregisteredVendors}"
-                                data-bs-toggle="tooltip" title="View Quotation">
-                                <i class="bi bi-eye-fill"></i>
-                            </a>`};
+                                    class="btn btn-sm btn-view fs-5  btn-icon-square btn-primary fs-6 square-pill d-inline-flex align-items-center px-2 py-1 shadow btn-view-quotation"
+                                    data-rfq="${row.RFQCode}" data-pr="${row.PRCode}" data-unreg="${row.HasUnregisteredVendors}"
+                                    data-bs-toggle="tooltip" title="View Quotation">
+                                    <i class="bi bi-eye-fill fs-5"></i>
+                                </a>`};
 
                             return `<div class="d-flex justify-content-center align-items-center">${viewBtn}${registerBtn}</div>`;
                         }
@@ -569,6 +644,12 @@
             rfqTable.on('draw', function () { $('[data-bs-toggle="tooltip"]').tooltip(); });
 
             $(document).on("change", "#selectAll", function () { $(".row-select").prop("checked", this.checked); });
+            $(document).on("change", ".row-select", function () {
+                const total = $(".row-select").length;
+                const checked = $(".row-select:checked").length;
+                $("#selectAll").prop("checked", total > 0 && total === checked);
+            });
+
 
             // View Quotation in Modal
             $(document).on("click", ".btn-view-quotation", function () {
