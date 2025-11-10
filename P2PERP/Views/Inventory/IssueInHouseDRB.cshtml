@@ -175,10 +175,10 @@
         </div>
 
         <!-- Items Table -->
-        <div class="container-fluid px-4 mt-4">
+        <div class="container-fluid px-4 ">
             <div class="table-responsive rounded shadow-sm">
-                <table id="issuedItemsTable" class="table table-hover align-middle mb-0">
-                    <thead class="table-primary text-dark">
+                <table id="issuedItemsTable" class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-dark text-dark">
                         <tr>
                             <th>Sr No</th>
                             <th>Item Code</th>
@@ -193,7 +193,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Table rows will be populated dynamically -->
+                        <tr class="no-data">
+                            <td colspan="10" class="text-center text-muted py-2">No data available</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -204,7 +206,7 @@
             <div class="row justify-content-end">
                 <div class="col-md-4">
 
-                    <div class="d-flex justify-content-around align-items-center p-1 bg-light rounded shadow-sm mb-5 ">
+                    <div class="d-flex justify-content-around   align-items-center p-1 bg-light rounded shadow-sm mb-5 ">
                         <label class="fw-bold text-dark mb-0 fs-6">Total Amount:</label>
                         <input type="text" id="TotalAmount" class="form-control form-control-sm text-center fw-semibold fs-6 bg-success text-white border-0"  style="width: 120px;" value="0.00" readonly />
                     </div>
@@ -217,7 +219,7 @@
     <div class="container-fluid px-4 mt-4 mb-4">
         <div class="d-flex justify-content-center">
             <button type="button" id="btnSubmitIssuedItems" class="btn btn-warning btn-sm px-5 shadow-sm">
-                <i class="bi bi-check2-circle me-2"></i> Issue Item
+                <i class="bi bi-check2-circle me-2"></i> Transfer Item
             </button>
         </div>
     </div>
@@ -450,6 +452,7 @@
                 </td>
             </tr>
         `);
+                toggleNoDataMessage();
 
                 // 🔹 Deduct stock from dropdown + global map
                 let newQty = currentItems - qty;
@@ -569,6 +572,7 @@
             // Stop form submit / other handlers from interfering
             e.preventDefault();
             e.stopImmediatePropagation();
+            toggleNoDataMessage();
 
             // Find the row
             let row = $(this).closest("tr");
@@ -752,7 +756,7 @@
                                 
 
                                 //Reset form & table
-                                $("#issuedItemsTable tbody").empty();
+                                //$("#issuedItemsTable tbody").empty();
                                 $("#TotalAmount").val("0.00");
                                 $("#Department").val("");
                                 $("#Employee").val("");
@@ -763,12 +767,23 @@
                 });
             });
 
+            
 
         });
 
 
 
     });
+
+    function toggleNoDataMessage() {
+        let rowCount = $("#issuedItemsTable tbody tr").not(".no-data").length;
+        if (rowCount === 0) {
+            $(".no-data").show();
+        } else {
+            $(".no-data").hide();
+        }
+    }
+
 
     // Prevent entering quantity more than CurrentItems
     $(document).on("input", "#Quantity", function () {

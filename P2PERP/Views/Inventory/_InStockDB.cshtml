@@ -152,8 +152,8 @@
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0 instockTable">
-                                    <thead class="table-primary">
+                                <table class="table table-hover table-striped align-middle mb-0 instockTable">
+                                    <thead class="table-dark">
                                         <tr>
                                             <th class="text-center">SR.No</th>
                                             <th>Item Code</th>
@@ -472,7 +472,7 @@ $(document).ready(function () {
             const binCode = $(this).find(".bin-ddl").val();
             const assignQty = parseInt($(this).find(".assign-qty").val()) || 0;
 
-            if (binCode && assignQty > 0) {
+             if (binCode && assignQty > 0) {
                 assignments.push({
                     GRNItemCode: grnItemCode,
                     BinCode: binCode,
