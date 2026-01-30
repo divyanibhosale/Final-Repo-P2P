@@ -3275,7 +3275,7 @@ Should you require any additional information or clarification, please do not he
 
 Sincerely,
 Procurement Team
-[Gayasoft Technology]";
+[Procura By Stark]";
 
 
                         // 🔹 Make a temp copy for each vendor (avoids file lock issues)

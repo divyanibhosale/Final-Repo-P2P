@@ -142,7 +142,7 @@
                         <th><input type="checkbox" id="selectAllReturn"></th> <!-- checkbox now matches DataTable column -->
                         <th>SR.NO</th>
                         <th>GR Date</th>
-                        <th>GRN Code</th>
+                        <th>GRN NO</th>
                         <th>Reason Of Rejection</th>
                         <th>Vendor Name</th>
                         <th>Invoice No</th>
@@ -363,7 +363,7 @@
                         return meta.row + 1;
                     }
                 },
-                { data: "GoodReturnCode", title: "GR Code" },
+                { data: "GoodReturnCode", title: "GR NO" },
                 {
                     data: "AddedDate",
                     title: "GR Date",
@@ -373,7 +373,7 @@
                         return moment(data).format("DD/MM/YYYY"); // Change to your desired format
                     }
                 },
-                { data: "GRNCode", title: "GRN Code" },
+                { data: "GRNCode", title: "GRN NO" },
                 {
                     data: "ReasonOfRejection",
                     title: "Reason Of Rejection",
