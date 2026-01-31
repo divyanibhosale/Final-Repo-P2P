@@ -75,72 +75,123 @@
                             <div class="row g-0">
                                 <!-- Left Column -->
                                 <div class="col-md-6 p-3 border-end">
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">GRN No</label>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            GRN No:
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0 fw-semibold" name="GRNCode" value="@Model.GRNCode" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">PO Reference</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="POReference" value="@Model.POReference" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">Vendor Code</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="VendorCode" value="@Model.VendorCode" readonly />
+                                            <span class="form-control-plaintext form-control-sm ">
+                                                @Model.GRNCode
+                                            </span>
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">Invoice No</label>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            PO Reference:
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="InvoiceCode" value="@Model.InvoiceCode" readonly />
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.POReference
+                                            </span>
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted small">Warehouse Code</label>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Vendor Code:
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="StorId" value="@Model.WareHouseCode" readonly />
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.VendorCode
+                                            </span>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Invoice No:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.InvoiceCode
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Warehouse Code:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.WareHouseCode
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </div>
+
 
                                 <!-- Right Column -->
                                 <div class="col-md-6 p-3">
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">GRN Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" value="@Model.GRNDate.ToString("dd/MM/yyyy")" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label form-control-sm fw-bold text-muted ">Contact Info</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="POContactInfo" value="@Model.ContactNo" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">Vendor Name</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="VendorName" value="@Model.VendorName" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">Invoice Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="InvoiceDate" value="@Model.InvoiceDate.ToShortDateString()" readonly />
-                                        </div>
-                                    </div>
+
                                     <div class="row">
-                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted ">Warehouse Name</label>
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            GRN Date:
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm bg-light border-0" name="WareHouseName" value="@Model.WarehouseName" readonly />
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.GRNDate.ToString("dd/MM/yyyy")
+                                            </span>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Contact Info:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.ContactNo
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Vendor Name:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.VendorName
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Invoice Date:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.InvoiceDate.ToShortDateString()
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm fw-bold text-muted">
+                                            Warehouse Name:
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <span class="form-control-plaintext form-control-sm">
+                                                @Model.WarehouseName
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
